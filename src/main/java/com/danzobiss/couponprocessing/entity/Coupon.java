@@ -29,4 +29,8 @@ public class Coupon implements Serializable {
     @JoinColumn(name = "coupon_id")
     private List<Product> products;
 
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "coupon_id")
+    private Buyer buyer;
+
 }

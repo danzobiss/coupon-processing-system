@@ -36,7 +36,7 @@ services:
       - 'SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/coupon_processing_system'
       - 'SPRING_DATASOURCE_USERNAME=postgres'
       - 'SPRING_DATASOURCE_PASSWORD=admin'
-      - 'SPRING_JPA_HIBERNATE_DDL_AUTO=create'
+      - 'SPRING_JPA_HIBERNATE_DDL_AUTO=update'
       - 'RABBITMQ_USERNAME=guest'
       - 'RABBITMQ_PASSWORD=guest'
 volumes:

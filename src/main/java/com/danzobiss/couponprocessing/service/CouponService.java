@@ -1,8 +1,10 @@
 package com.danzobiss.couponprocessing.service;
 
 import com.danzobiss.couponprocessing.client.MockAPIClient;
+import com.danzobiss.couponprocessing.dto.BuyerDataDTO;
 import com.danzobiss.couponprocessing.dto.CouponDTO;
 import com.danzobiss.couponprocessing.dto.MockProductDTO;
+import com.danzobiss.couponprocessing.entity.Buyer;
 import com.danzobiss.couponprocessing.entity.Coupon;
 import com.danzobiss.couponprocessing.exception.InvalidCouponException;
 import com.danzobiss.couponprocessing.pubsub.CouponQueueSender;
@@ -36,11 +38,19 @@ public class CouponService {
         validateCompanyDocument(couponDTO.getCompanyDocument());
         validateTotalValue(couponDTO);
 
-        Coupon createdCoupon = repository.save(mapToEntity(couponDTO));
+        Coupon createdCoupon = repository.save(mapToCoupon(couponDTO));
 
         queueSender.sendCoupon(createdCoupon);
 
         return createdCoupon;
+    }
+
+    public void updateCouponWithBuyerData(BuyerDataDTO buyerDto){
+        Coupon coupon = repository.findById(buyerDto.getCouponId()).get();
+
+        coupon.setBuyer(mapToBuyer(buyerDto));
+
+        repository.save(coupon);
     }
 
     private void validateProducts(List<CouponDTO.ProductDTO> products) {
@@ -86,9 +96,14 @@ public class CouponService {
         }
     }
 
-    private Coupon mapToEntity(CouponDTO couponDTO) {
+    private Coupon mapToCoupon(CouponDTO couponDTO) {
         ModelMapper mapper = new ModelMapper();
         return mapper.map(couponDTO, Coupon.class);
+    }
+
+    private Buyer mapToBuyer(BuyerDataDTO buyerDTO) {
+        ModelMapper mapper = new ModelMapper();
+        return mapper.map(buyerDTO, Buyer.class);
     }
 
 }
