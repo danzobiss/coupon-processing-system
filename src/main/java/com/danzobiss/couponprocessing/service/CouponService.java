@@ -5,6 +5,7 @@ import com.danzobiss.couponprocessing.dto.CouponDTO;
 import com.danzobiss.couponprocessing.dto.MockProductDTO;
 import com.danzobiss.couponprocessing.entity.Coupon;
 import com.danzobiss.couponprocessing.exception.InvalidCouponException;
+import com.danzobiss.couponprocessing.pubsub.CouponQueueSender;
 import com.danzobiss.couponprocessing.repository.CouponRepository;
 import com.danzobiss.couponprocessing.util.Util;
 import feign.FeignException;
@@ -26,6 +27,9 @@ public class CouponService {
     @Autowired
     private MockAPIClient mockAPIClient;
 
+    @Autowired
+    private CouponQueueSender queueSender;
+
     public Coupon createCoupon(@Validated CouponDTO couponDTO) {
 
         validateProducts(couponDTO.getProducts());
@@ -33,6 +37,8 @@ public class CouponService {
         validateTotalValue(couponDTO);
 
         Coupon createdCoupon = repository.save(mapToEntity(couponDTO));
+
+        queueSender.sendCoupon(createdCoupon);
 
         return createdCoupon;
     }
