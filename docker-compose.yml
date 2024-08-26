@@ -1,0 +1,40 @@
+services:
+  db:
+    image: 'postgres:latest'
+    volumes:
+      - "postgres_data:/var/lib/postgresql/data"
+    environment:
+      - 'POSTGRES_DB=coupon_processing_system'
+      - 'POSTGRES_PASSWORD=admin'
+      - 'POSTGRES_USER=postgres'
+    ports:
+      - '5432:5432'
+#  rabbitmq:
+#    image: 'rabbitmq:latest'
+#    environment:
+#      - 'RABBITMQ_DEFAULT_PASS=rabbitmq_secret'
+#      - 'RABBITMQ_DEFAULT_USER=rabbitmq_admin'
+#    ports:
+#      - '5672:5672'
+#      - '15672:15672'
+#    volumes:
+#      - "rabbitmq_data:/data"
+  app:
+    image: 'coupon-processing-system'
+    build:
+      context: .
+    ports:
+      - '8081:8080' # Substitua pela porta em que sua aplicação está ouvindo
+    depends_on:
+      - db
+#      - rabbitmq
+    environment:
+      - 'SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/coupon_processing_system'
+      - 'SPRING_DATASOURCE_USERNAME=postgres'
+      - 'SPRING_DATASOURCE_PASSWORD=admin'
+      - 'SPRING_JPA_HIBERNATE_DDL_AUTO=create'
+      - 'RABBITMQ_USERNAME=rabbitmq_admin'
+      - 'RABBITMQ_PASSWORD=rabbitmq_secret'
+volumes:
+#  rabbitmq_data:
+  postgres_data:
