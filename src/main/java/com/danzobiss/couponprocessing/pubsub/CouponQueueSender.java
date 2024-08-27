@@ -13,9 +13,9 @@ public class CouponQueueSender {
     private RabbitTemplate rabbitTemplate;
 
     @Autowired
-    private Queue queue;
+    private Queue queueCoupon;
 
     public void sendCoupon(Coupon coupon) {
-        rabbitTemplate.convertAndSend(this.queue.getName(), coupon);
+        rabbitTemplate.convertAndSend(queueCoupon.getName(), coupon);
     }
 }

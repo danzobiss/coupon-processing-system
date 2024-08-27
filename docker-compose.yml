@@ -28,7 +28,7 @@ services:
     build:
       context: .
     ports:
-      - '8080:8080' # Substitua pela porta em que sua aplicação está ouvindo
+      - '8081:8081' # Substitua pela porta em que sua aplicação está ouvindo
     depends_on:
       - db
       - rabbitmq

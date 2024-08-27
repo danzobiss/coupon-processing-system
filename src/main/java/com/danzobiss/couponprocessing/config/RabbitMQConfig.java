@@ -5,11 +5,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class SenderConfig {
+public class RabbitMQConfig {
 
     @Bean
-    public Queue queue() {
+    public Queue queueCoupon() {
         return new Queue("coupon-validated-pub", true);
+    }
+
+    @Bean
+    public Queue queueBuyer() {
+        return new Queue("buyer-data-sub", true);
     }
 
 }

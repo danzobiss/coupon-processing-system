@@ -63,7 +63,7 @@ public class CouponService {
 
             Double unitaryPrice = productDTO.getUnitaryPrice();
             if (unitaryPrice < mockProduct.getMinPrice() || unitaryPrice > mockProduct.getMaxPrice()) {
-                throw new InvalidCouponException("The unitary price must be between " + mockProduct.getMinPrice() + " and " + mockProduct.getMaxPrice());
+                throw new InvalidCouponException("The unitary price of product with EAN " + productDTO.getEan() + " must be between " + mockProduct.getMinPrice() + " and " + mockProduct.getMaxPrice());
             }
         });
     }
