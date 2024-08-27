@@ -144,8 +144,7 @@ src/
     │           ├── exception/ # Contains custom exception classes
     │           ├── pubsub/ # Contains the pub/sub queue classes
     │           ├── repository/ # Contains the repository interfaces
-    │           ├── service/ # Contains the service classes
-    │           └── util/ # Contains the util classes
+    │           └── service/ # Contains the service classes
     └── resources/
-        ├── application.properties # Application properties file
+        └── application.properties # Application properties file
 ```

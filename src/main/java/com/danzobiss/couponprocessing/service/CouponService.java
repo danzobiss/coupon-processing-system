@@ -9,7 +9,6 @@ import com.danzobiss.couponprocessing.entity.Coupon;
 import com.danzobiss.couponprocessing.exception.InvalidCouponException;
 import com.danzobiss.couponprocessing.pubsub.CouponQueueSender;
 import com.danzobiss.couponprocessing.repository.CouponRepository;
-import com.danzobiss.couponprocessing.util.Util;
 import feign.FeignException;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +34,6 @@ public class CouponService {
     public Coupon createCoupon(@Validated CouponDTO couponDTO) {
 
         validateProducts(couponDTO.getProducts());
-        validateCompanyDocument(couponDTO.getCompanyDocument());
         validateTotalValue(couponDTO);
 
         Coupon createdCoupon = repository.save(mapToCoupon(couponDTO));
@@ -78,12 +76,6 @@ public class CouponService {
             // Log the exception if necessary
         }
         return null;
-    }
-
-    private void validateCompanyDocument(String companyDocument) {
-        if (!Util.isValidCNPJ(companyDocument)) {
-            throw new InvalidCouponException("The company document is not a valid CNPJ");
-        }
     }
 
     private void validateTotalValue(CouponDTO couponDTO) {
