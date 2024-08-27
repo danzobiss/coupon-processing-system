@@ -5,7 +5,7 @@
   <br>
 </h1>
 
-<h4 align="center">A Coupon Processing API created for <a href="https://hubbrasil.com.br" target="_blank" style="color: #653AFB">looqbox</a> backend challenge.</h4>
+<h4 align="center">A Coupon Processing API created for <a href="https://hubbrasil.com.br" target="_blank" style="color: #653AFB">HUB Brasil</a> backend challenge.</h4>
 
 <p align="center">
   <img alt="GitHub language count" src="https://img.shields.io/github/languages/count/danzobiss/inventory-management-system?color=%23b70ac7">
